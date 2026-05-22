@@ -121,6 +121,32 @@ Alternatively, without Herd, run:
 php artisan serve
 ```
 
+## Database and Resetting Demo Data
+
+This project uses SQLite for local development. SQLite stores the app data in a single file instead of needing a separate database server.
+
+The local database file is:
+
+```text
+database/database.sqlite
+```
+
+This file stores demo users, teams, shifts, and which staff members have booked each shift.
+
+To reset the database back to the demo state, run:
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+This deletes the current local data, recreates the tables, and reloads the demo coffee shop data from:
+
+```text
+database/seeders/DatabaseSeeder.php
+```
+
+For a real hosted version, use MySQL or PostgreSQL instead of the local SQLite demo file.
+
 ## Important Files
 
 | File | Purpose |

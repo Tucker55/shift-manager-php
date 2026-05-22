@@ -55,7 +55,7 @@ Manager features are visible when logged in as Taylor.
 
 ### Shift History Calendar
 
-A monthly calendar showing all completed shifts. Shifts you personally worked are highlighted in amber. Use the ← Prev / Next → arrows to browse any past month.
+A monthly calendar showing all completed shifts. Shifts you personally worked are highlighted in amber. 
 
 ![Shift history](screenshots/history.png)
 

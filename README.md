@@ -30,6 +30,28 @@ password
 
 Manager features are visible when logged in as Taylor.
 
+## Screenshots
+
+### Login
+
+![Login page](screenshots/login.png)
+
+### Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+### Open Shifts
+
+![Open shifts](screenshots/open-shifts.png)
+
+### My Schedule
+
+![My schedule](screenshots/my-schedule.png)
+
+### Manager Rota
+
+![Manager rota](screenshots/manager-rota.png)
+
 ## Tech Stack
 
 - PHP

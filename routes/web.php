@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/shifts/available', [ShiftController::class, 'available'])->name('shifts.available');
     Route::get('/shifts/calendar', [ShiftController::class, 'calendar'])->name('shifts.calendar');
     Route::get('/shifts/mine', [ShiftController::class, 'mine'])->name('shifts.mine');
+    Route::get('/shifts/history', [ShiftController::class, 'history'])->name('shifts.history');
     Route::get('/manager/shifts', [ShiftController::class, 'manage'])->name('manager.shifts');
     Route::post('/manager/shifts', [ShiftController::class, 'store'])->name('manager.shifts.store');
     Route::put('/manager/shifts/{shift}', [ShiftController::class, 'update'])->name('manager.shifts.update');

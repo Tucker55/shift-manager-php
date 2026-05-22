@@ -7,6 +7,7 @@ A Laravel shift management app for a small coffee shop. Staff can log in, pick u
 - Staff login with Laravel Breeze authentication
 - Open shift board for baristas
 - Personal schedule page
+- Shift history calendar (monthly view of all completed shifts)
 - Staff directory
 - Manager-only rota control panel
 - Create, edit, and remove shifts
@@ -51,6 +52,12 @@ Manager features are visible when logged in as Taylor.
 ### Manager Rota
 
 ![Manager rota](screenshots/manager-rota.png)
+
+### Shift History Calendar
+
+A monthly calendar showing all completed shifts. Shifts you personally worked are highlighted in amber. Use the ← Prev / Next → arrows to browse any past month.
+
+![Shift history](screenshots/history.png)
 
 ## Tech Stack
 

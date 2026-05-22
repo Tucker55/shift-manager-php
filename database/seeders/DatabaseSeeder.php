@@ -86,22 +86,80 @@ class DatabaseSeeder extends Seeder
             'notes' => 'Extra pastries, expect a queue',
         ]);
 
-        Shift::create([
-            'team_id' => $team->id,
-            'title' => 'Last week — close',
-            'location' => 'Whole shop',
-            'starts_at' => now()->subDays(6)->setTime(14, 0),
-            'ends_at' => now()->subDays(6)->setTime(22, 0),
-            'slots' => 1,
-        ]);
+        // ---------- past shifts (this month) ----------
+        $pastShifts = [];
 
-        // Each barista already has something on their schedule
+        for ($i = 1; $i <= 18; $i++) {
+            $day = now()->startOfMonth()->addDays($i - 1);
+            if ($day->isWeekend()) {
+                continue;
+            }
+            if ($day->gte(now())) {
+                break;
+            }
+
+            if ($i % 3 === 0) {
+                $shift = Shift::create([
+                    'team_id' => $team->id,
+                    'title' => 'Opening — espresso bar',
+                    'location' => 'Main bar',
+                    'starts_at' => $day->copy()->setTime(6, 30),
+                    'ends_at' => $day->copy()->setTime(14, 30),
+                    'slots' => 2,
+                    'notes' => 'Open tills, dial in grinders',
+                ]);
+                $shift->workers()->attach($alex->id, ['status' => 'confirmed']);
+                $shift->workers()->attach($chris->id, ['status' => 'confirmed']);
+                $pastShifts[] = $shift;
+            } elseif ($i % 3 === 1) {
+                $shift = Shift::create([
+                    'team_id' => $team->id,
+                    'title' => 'Morning rush',
+                    'location' => 'Main bar + till',
+                    'starts_at' => $day->copy()->setTime(7, 0),
+                    'ends_at' => $day->copy()->setTime(12, 0),
+                    'slots' => 2,
+                    'notes' => 'Busy commute hours',
+                ]);
+                $shift->workers()->attach($alex->id, ['status' => 'confirmed']);
+                $pastShifts[] = $shift;
+            } else {
+                $shift = Shift::create([
+                    'team_id' => $team->id,
+                    'title' => 'Closing — clean down',
+                    'location' => 'Whole shop',
+                    'starts_at' => $day->copy()->setTime(14, 0),
+                    'ends_at' => $day->copy()->setTime(22, 0),
+                    'slots' => 1,
+                    'notes' => 'Lock up, restock',
+                ]);
+                $shift->workers()->attach($chris->id, ['status' => 'confirmed']);
+                $pastShifts[] = $shift;
+            }
+        }
+
+        // ---------- last month — a few shifts for history ----------
+        $lastMonth = now()->subMonth()->startOfMonth();
+        foreach ([3, 7, 12, 16, 20, 24] as $d) {
+            $day = $lastMonth->copy()->addDays($d - 1);
+            if ($day->isWeekend()) {
+                continue;
+            }
+            $shift = Shift::create([
+                'team_id' => $team->id,
+                'title' => $d % 2 === 0 ? 'Morning rush' : 'Opening — espresso bar',
+                'location' => 'Main bar',
+                'starts_at' => $day->copy()->setTime(7, 0),
+                'ends_at' => $day->copy()->setTime(13, 0),
+                'slots' => 2,
+            ]);
+            $shift->workers()->attach($alex->id, ['status' => 'confirmed']);
+        }
+
+        // Each barista already has something on their upcoming schedule
         $opening->workers()->attach($alex->id, ['status' => 'confirmed']);
         $rush->workers()->attach($chris->id, ['status' => 'confirmed']);
         $brunch->workers()->attach($alex->id, ['status' => 'confirmed']);
         $closing->workers()->attach($alex->id, ['status' => 'confirmed']);
-
-        $past = Shift::where('title', 'Last week — close')->first();
-        $past->workers()->attach($chris->id, ['status' => 'confirmed']);
     }
 }

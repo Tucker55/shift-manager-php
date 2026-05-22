@@ -110,6 +110,40 @@ class ShiftController extends Controller
         ]);
     }
 
+    public function history(Request $request): View
+    {
+        $user = $request->user();
+
+        $month = $request->filled('month')
+            ? Carbon::parse($request->string('month'))->startOfMonth()
+            : now()->startOfMonth();
+
+        $monthEnd = $month->copy()->endOfMonth();
+
+        $shifts = Shift::query()
+            ->forTeam($user->team_id)
+            ->where('ends_at', '<', now())
+            ->whereBetween('starts_at', [$month, $monthEnd])
+            ->with('workers')
+            ->orderBy('starts_at')
+            ->get();
+
+        $shiftsByDate = $shifts->groupBy(fn (Shift $shift) => $shift->starts_at->format('Y-m-d'));
+
+        $myPastShifts = $shifts->filter(fn (Shift $shift) => $shift->isClaimedBy($user));
+
+        return view('shifts.history', [
+            'user'          => $user,
+            'month'         => $month,
+            'monthEnd'      => $monthEnd,
+            'shiftsByDate'  => $shiftsByDate,
+            'myPastShifts'  => $myPastShifts,
+            'prevMonth'     => $month->copy()->subMonth()->format('Y-m-d'),
+            'nextMonth'     => $month->copy()->addMonth()->format('Y-m-d'),
+            'totalWorked'   => $myPastShifts->count(),
+        ]);
+    }
+
     public function calendar(Request $request): View
     {
         $user = $request->user();

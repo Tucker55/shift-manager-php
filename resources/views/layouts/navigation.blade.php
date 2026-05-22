@@ -8,6 +8,7 @@
                     <a href="{{ route('dashboard') }}" class="nav-pill {{ request()->routeIs('dashboard') ? 'nav-pill-active' : '' }}">Home</a>
                     <a href="{{ route('shifts.available') }}" class="nav-pill {{ request()->routeIs('shifts.available') ? 'nav-pill-active' : '' }}">Open shifts</a>
                     <a href="{{ route('shifts.mine') }}" class="nav-pill {{ request()->routeIs('shifts.mine') ? 'nav-pill-active' : '' }}">My schedule</a>
+                    <a href="{{ route('shifts.history') }}" class="nav-pill {{ request()->routeIs('shifts.history') ? 'nav-pill-active' : '' }}">History</a>
                     <a href="{{ route('team.index') }}" class="nav-pill {{ request()->routeIs('team.index') ? 'nav-pill-active' : '' }}">Staff</a>
                     @if (Auth::user()->isManager())
                         <a href="{{ route('manager.shifts') }}" class="nav-pill {{ request()->routeIs('manager.shifts') ? 'nav-pill-active' : '' }}">Manage rota</a>
@@ -40,6 +41,7 @@
         <a href="{{ route('dashboard') }}" class="block nav-pill {{ request()->routeIs('dashboard') ? 'nav-pill-active' : '' }}">Home</a>
         <a href="{{ route('shifts.available') }}" class="block nav-pill {{ request()->routeIs('shifts.available') ? 'nav-pill-active' : '' }}">Open shifts</a>
         <a href="{{ route('shifts.mine') }}" class="block nav-pill {{ request()->routeIs('shifts.mine') ? 'nav-pill-active' : '' }}">My schedule</a>
+        <a href="{{ route('shifts.history') }}" class="block nav-pill {{ request()->routeIs('shifts.history') ? 'nav-pill-active' : '' }}">History</a>
         <a href="{{ route('team.index') }}" class="block nav-pill {{ request()->routeIs('team.index') ? 'nav-pill-active' : '' }}">Staff</a>
         @if (Auth::user()->isManager())
             <a href="{{ route('manager.shifts') }}" class="block nav-pill {{ request()->routeIs('manager.shifts') ? 'nav-pill-active' : '' }}">Manage rota</a>

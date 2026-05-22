@@ -94,10 +94,6 @@ npm run build
 
 If you use Laravel Herd, add this project folder to Herd's **Sites** section:
 
-```text
-C:\Users\alext\Projects\shift-manager
-```
-
 Herd should then serve the app at:
 
 ```text
